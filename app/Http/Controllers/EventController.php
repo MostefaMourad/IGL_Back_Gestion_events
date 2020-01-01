@@ -28,7 +28,26 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $new_event = new Event();
+        
+        $new_event->nom = $request->nom;
+        $new_event->description = $request->description;
+        $new_event->nom = $request->nom;
+        $new_event->nbr_interesse = $request->nbr_interesse;
+        $new_event->nbr_participe = $request->nbr_participe;
+        $new_event->organisateur = $request->organisateur;
+        $new_event->adresse = $request->adresse;
+        $new_event->date_debut = $request->spedate_debut;
+        $new_event->duree = $request->duree;
+
+        $event_save = $new_event->save();
+        if ($event_save) {
+            $response = APIHelpers::createAPIResponse(false, 201, 'Ajout avec succes', null);
+            return response()->json($response, 201);
+        } else {
+            $response = APIHelpers::createAPIResponse(true, 400, 'echec', null);
+            return response()->json($response, 400);
+        }
     }
 
     /**
