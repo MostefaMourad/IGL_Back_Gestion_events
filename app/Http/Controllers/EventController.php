@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Event;
 use App\Helpers\APIHelpers;
 use Illuminate\Http\Request;
+use App\Http\Requests\AjoutEventRequest;
 
 class EventController extends Controller
 {
@@ -26,13 +27,11 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AjoutEventRequest $request)
     {
-        $new_event = new Event();
-        
+     /*   $new_event = new Event();
         $new_event->nom = $request->nom;
         $new_event->description = $request->description;
-        $new_event->nom = $request->nom;
         $new_event->nbr_interesse = $request->nbr_interesse;
         $new_event->nbr_participe = $request->nbr_participe;
         $new_event->organisateur = $request->organisateur;
@@ -47,7 +46,7 @@ class EventController extends Controller
         } else {
             $response = APIHelpers::createAPIResponse(true, 400, 'echec', null);
             return response()->json($response, 400);
-        }
+        } */ 
     }
 
     /**
