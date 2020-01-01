@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Event;
+use App\Helpers\APIHelpers;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -13,17 +15,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $events = Event::all();
+        $response = APIHelpers::createAPIResponse(false, 200, '', $events);
+        return response()->json($response, 200);
     }
 
     /**
@@ -45,19 +39,11 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+        $events = Event::all();
+        $response = APIHelpers::createAPIResponse(false, 200, '', $events);
+        return response()->json($response, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
