@@ -29,7 +29,7 @@ class EventController extends Controller
      */
     public function store(AjoutEventRequest $request)
     {
-     /*   $new_event = new Event();
+        $new_event = new Event();
         $new_event->nom = $request->nom;
         $new_event->description = $request->description;
         $new_event->nbr_interesse = $request->nbr_interesse;
@@ -46,7 +46,7 @@ class EventController extends Controller
         } else {
             $response = APIHelpers::createAPIResponse(true, 400, 'echec', null);
             return response()->json($response, 400);
-        } */ 
+        }
     }
 
     /**
@@ -57,8 +57,13 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        $events = Event::all();
-        $response = APIHelpers::createAPIResponse(false, 200, '', $events);
+        $etudiant = Event::find($id);
+        if($etudiant==null){
+            $response = APIHelpers::createAPIResponse(true, 204,'Etudiant introuvable', $etudiant);
+        }
+        else{
+            $response = APIHelpers::createAPIResponse(false, 200, 'Etudiant trouvee', $etudiant);
+        }       
         return response()->json($response, 200);
     }
 
