@@ -6,6 +6,7 @@ use App\Event;
 use App\Helpers\APIHelpers;
 use Illuminate\Http\Request;
 use App\Http\Requests\AjoutEventRequest;
+use App\Http\Requests\UpdateEventRequest;
 
 class EventController extends Controller
 {
@@ -57,12 +58,12 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        $etudiant = Event::find($id);
-        if($etudiant==null){
-            $response = APIHelpers::createAPIResponse(true, 204,'Etudiant introuvable', $etudiant);
+        $event = Event::find($id);
+        if($event==null){
+            $response = APIHelpers::createAPIResponse(true, 204,'Evenement introuvable', $event);
         }
         else{
-            $response = APIHelpers::createAPIResponse(false, 200, 'Etudiant trouvee', $etudiant);
+            $response = APIHelpers::createAPIResponse(false, 200, 'Evenement trouvee', $event);
         }       
         return response()->json($response, 200);
     }
@@ -75,9 +76,30 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateEventRequest $request, $id)
     {
-        //
+        $event = event::find($id);
+        if ($event == null) {
+            $response = APIHelpers::createAPIResponse(true, 400, 'echec:evenement introuvable', null);
+            return response()->json($response, 400);
+        } else {
+            $event->nom = $request->nom;   
+            $event->description = $request->description;
+            $event->nbr_interesse = $request->nbr_interesse;
+            $event->nbr_participe = $request->nbr_participe;
+            $event->organisateur = $request->organisateur;
+            $event->adresse = $request->adresse;
+            $event->date_debut = $request->spedate_debut;
+            $event->duree = $request->duree;
+            $event_save = $event->save();
+            if ($event_save) {
+                $response = APIHelpers::createAPIResponse(false, 200, 'Modification avec succes', null);
+                return response()->json($response, 200);
+            } else {
+                $response = APIHelpers::createAPIResponse(true, 400, 'echec', null);
+                return response()->json($response, 400);
+            }
+        }
     }
 
     /**
@@ -88,6 +110,19 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $event = Event::find($id);
+        if ($event == null) {
+            $response = APIHelpers::createAPIResponse(true, 400, 'echec:evenement introuvable', null);
+            return response()->json($response, 400);
+        } else {
+            $event_delete = $event->delete();
+            if ($event_delete) {
+                $response = APIHelpers::createAPIResponse(false, 200, 'Suppression avec succes', null);
+                return response()->json($response, 200);
+            } else {
+                $response = APIHelpers::createAPIResponse(true, 400, 'echec', null);
+                return response()->json($response, 400);
+            }
+        }
     }
 }
