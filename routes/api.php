@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('events','EventController@index');
+
+Route::get('events/{id}','EventController@show');
+
+Route::post('events','EventController@store');
+
+Route::patch('events/{id}','EventController@update');
+
+Route::delete('events/{id}','EventController@destroy');
+
