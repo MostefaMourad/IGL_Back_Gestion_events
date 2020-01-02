@@ -33,5 +33,10 @@ class UpdateEventRequest extends FormRequest
             'date_debut' => 'date_format:Y-m-d|after:today|nullable',
             'duree' => 'max:100|nullable',
         ];
+
+    }
+    public function wantsJson()
+    {
+        return true;
     }
 }
