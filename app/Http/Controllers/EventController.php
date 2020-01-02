@@ -42,7 +42,7 @@ class EventController extends Controller
 
         $event_save = $new_event->save();
         if ($event_save) {
-            $response = APIHelpers::createAPIResponse(false, 201, 'Ajout avec succes', null);
+            $response = APIHelpers::createAPIResponse(false, 201, 'Ajout avec succes', $new_event);
             return response()->json($response, 201);
         } else {
             $response = APIHelpers::createAPIResponse(true, 400, 'echec', null);
@@ -60,7 +60,7 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         if($event==null){
-            $response = APIHelpers::createAPIResponse(true, 204,'Evenement introuvable', $event);
+            $response = APIHelpers::createAPIResponse(true, 204,'Evenement introuvable', null);
         }
         else{
             $response = APIHelpers::createAPIResponse(false, 200, 'Evenement trouvee', $event);
@@ -93,7 +93,7 @@ class EventController extends Controller
             $event->duree = $request->duree;
             $event_save = $event->save();
             if ($event_save) {
-                $response = APIHelpers::createAPIResponse(false, 200, 'Modification avec succes', null);
+                $response = APIHelpers::createAPIResponse(false, 200, 'Modification avec succes', $event);
                 return response()->json($response, 200);
             } else {
                 $response = APIHelpers::createAPIResponse(true, 400, 'echec', null);
@@ -117,7 +117,7 @@ class EventController extends Controller
         } else {
             $event_delete = $event->delete();
             if ($event_delete) {
-                $response = APIHelpers::createAPIResponse(false, 200, 'Suppression avec succes', null);
+                $response = APIHelpers::createAPIResponse(false, 200, 'Suppression avec succes', $event);
                 return response()->json($response, 200);
             } else {
                 $response = APIHelpers::createAPIResponse(true, 400, 'echec', null);
