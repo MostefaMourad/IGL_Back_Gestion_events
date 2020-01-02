@@ -14,13 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('events','EventController@index');
-
-Route::get('events/{id}','EventController@show');
-
-Route::post('events','EventController@store');
-
-Route::patch('events/{id}','EventController@update');
-
-Route::delete('events/{id}','EventController@destroy');
-
+Route::group(['prefix' => 'events'], function() {
+    Route::get('/', 'EventController@index')->name('events');
+    Route::get('/{id}', 'EventController@show')->name('events.show');
+    Route::post('/', 'EventController@store')->name('events.store');
+    Route::patch('/{id}', 'EventController@update')->name('events.update');
+    Route::delete('/{id}', 'EventController@destroy')->name('events.delete');
+});
