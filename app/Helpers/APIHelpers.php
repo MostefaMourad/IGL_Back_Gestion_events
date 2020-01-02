@@ -17,8 +17,10 @@ class APIHelpers {
          $result['code']=$code;
          if($content == null){
             $result['message']=$message;
+            $result['data']=null;
          }
          else{
+            $result['message']=$message;
             $result['data']=$content;
          }
        }
