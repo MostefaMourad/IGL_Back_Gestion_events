@@ -24,7 +24,7 @@ class UpdateEventRequest extends FormRequest
     public function rules()
     {
         return [
-            'nom' => 'required|max:255|unique:events',  
+            'nom' => 'required|max:255',  
             'description' => 'required',
             'nbr_interesse' => 'integer',  
             'nbr_participe' => 'integer',
